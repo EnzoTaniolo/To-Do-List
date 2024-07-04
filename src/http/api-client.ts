@@ -3,6 +3,7 @@
 
 import ky from 'ky'
 
+// linkando com o back
 export const api = ky.create({
   prefixUrl: 'https://eca1-2804-431-cfd9-7854-9121-5268-a8-ca8d.ngrok-free.app',
   // hooks: {

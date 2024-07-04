@@ -8,29 +8,25 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-// Schema de validacao do zod
-const signInSchema = z.object({
+const signUpSchema = z.object({
+  name: z.string(),
   email: z.string().email(),
-  password: z.string().min(6, { message: 'invalid password.' }),
+  password: z.string().min(6, { message: 'password is too short.' }),
 })
 
-// convertendo o schema em type (tipagem)
-type SignInSchema = z.infer<typeof signInSchema>
+type SignUpSchema = z.infer<typeof signUpSchema>
 
-export function SignInForm() {
-  // register: registra oque está escrito nos inputs
-  // handleSubmit: pega os valores do form e "manda" para a funcao que chamamos a API
+export function SignUpForm() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignInSchema>({
-    resolver: zodResolver(signInSchema),
+  } = useForm<SignUpSchema>({
+    resolver: zodResolver(signUpSchema),
   })
 
   // { email, password }: SignInSchema
-  //
-  async function handleSignIn() {
+  async function HandleSignUp() {
     await new Promise((resolve) => {
       setTimeout(resolve, 2000)
     })
@@ -38,7 +34,11 @@ export function SignInForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(handleSignIn)} className="space-y-4">
+    <form onSubmit={handleSubmit(HandleSignUp)} className="space-y-4">
+      <div>
+        <Label>Name</Label>
+        <Input type="text" id="name" {...register('name')} />
+      </div>
       <div>
         <Label>Email</Label>
         <Input type="email" id="email" {...register('email')} />
@@ -50,16 +50,17 @@ export function SignInForm() {
         <p className="text-sm text-destructive font-semibold">
           {errors.password?.message}
         </p>
-        <Link href="/auth/sign-up">
+
+        <Link href="/auth/sign-in">
           <p className="mt-2 text-right text-xs underline font-semibold">
-            Dont have an account? Sign-up
+            Already registered? Sign-in
           </p>
         </Link>
       </div>
       <div className="flex justify-center">
-        <Button type="submit">
+        <Button>
           {isSubmitting && <Loader2 className="animate-spin mr-2" />}
-          Sign-in with Email
+          Sign-Up
         </Button>
       </div>
     </form>

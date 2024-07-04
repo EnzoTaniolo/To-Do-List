@@ -1,4 +1,4 @@
-import { Header } from '@/components/header'
+import { Header } from '@/components/ui/header'
 import { Nav } from '@/components/ui/nav'
 
 export default function AppLayout({
