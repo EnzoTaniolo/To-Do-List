@@ -7,6 +7,8 @@ import { Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { signInAction } from './actions'
+import { useRouter } from 'next/navigation'
 
 // Schema de validacao do zod
 const signInSchema = z.object({
@@ -15,11 +17,12 @@ const signInSchema = z.object({
 })
 
 // convertendo o schema em type (tipagem)
-type SignInSchema = z.infer<typeof signInSchema>
+export type SignInSchema = z.infer<typeof signInSchema>
 
 export function SignInForm() {
   // register: registra oque está escrito nos inputs
   // handleSubmit: pega os valores do form e "manda" para a funcao que chamamos a API
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -28,13 +31,9 @@ export function SignInForm() {
     resolver: zodResolver(signInSchema),
   })
 
-  // { email, password }: SignInSchema
-  //
-  async function handleSignIn() {
-    await new Promise((resolve) => {
-      setTimeout(resolve, 2000)
-    })
-    // await signIn({ email, password })
+  async function handleSignIn({ email, password }: SignInSchema) {
+    await signInAction({ email, password })
+    router.push('/')
   }
 
   return (

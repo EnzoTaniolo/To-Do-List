@@ -4,6 +4,9 @@ interface SignInRequest {
   email: string
   password: string
 }
+interface SignInResponse {
+  token: string
+}
 
 // mandando pro back as informaçoes do form sing-in
 export async function signIn({ email, password }: SignInRequest) {
@@ -11,6 +14,6 @@ export async function signIn({ email, password }: SignInRequest) {
     .post('sign-in', {
       json: { email, password },
     })
-    .json()
+    .json<SignInResponse>()
   return result
 }

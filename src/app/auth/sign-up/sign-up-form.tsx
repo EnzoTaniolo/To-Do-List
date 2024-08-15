@@ -7,6 +7,7 @@ import { Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { signUp } from '@/http/sign-up'
 
 const signUpSchema = z.object({
   name: z.string(),
@@ -14,7 +15,7 @@ const signUpSchema = z.object({
   password: z.string().min(6, { message: 'password is too short.' }),
 })
 
-type SignUpSchema = z.infer<typeof signUpSchema>
+export type SignUpSchema = z.infer<typeof signUpSchema>
 
 export function SignUpForm() {
   const {
@@ -25,12 +26,8 @@ export function SignUpForm() {
     resolver: zodResolver(signUpSchema),
   })
 
-  // { email, password }: SignInSchema
-  async function HandleSignUp() {
-    await new Promise((resolve) => {
-      setTimeout(resolve, 2000)
-    })
-    // await signIn({ email, password })
+  async function HandleSignUp({ email, password, name }: SignUpSchema) {
+    await signUp({ email, password, name })
   }
 
   return (

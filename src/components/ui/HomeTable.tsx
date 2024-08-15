@@ -19,17 +19,19 @@ export function HomeTable() {
   return (
     <Table className="max-w-[1400px] mx-auto mt-6">
       <TableHeader>
-        <TableHead></TableHead>
-        <TableHead>
-          <p>Your Task</p>
-        </TableHead>
-        <TableHead>
-          <p>Description</p>
-        </TableHead>
-        <TableHead>Status</TableHead>
-        <TableHead className="flex justify-center">
-          <p>Options</p>
-        </TableHead>
+        <TableRow>
+          <TableHead></TableHead>
+          <TableHead>
+            <p>Your Task</p>
+          </TableHead>
+          <TableHead>
+            <p>Description</p>
+          </TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead className="flex justify-center">
+            <p>Options</p>
+          </TableHead>
+        </TableRow>
       </TableHeader>
       <TableBody className="border-y p-10">
         <TableRow className="">
